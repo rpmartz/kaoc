@@ -2,7 +2,6 @@ package com.ryanpmartz.aoc.fifteen
 
 import java.io.File
 import java.nio.charset.Charset
-import kotlin.streams.asStream
 
 object Day01 {
 
