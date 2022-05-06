@@ -37,9 +37,12 @@ object Day05 {
                 numVowels++
             }
 
-            hasPair = first == second
+            if(!hasPair) {
+                hasPair = first == second
+            }
+
         }
 
-        return numVowels >= 3 && hasPair;
+        return numVowels >= 3 && hasPair
     }
 }
