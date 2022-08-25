@@ -12,9 +12,11 @@ object Day05 {
     fun main(args: Array<String>) {
         val instructions = File("src/main/resources/2015/day05.txt").readLines(Charset.defaultCharset())
 
-        for (instruction in instructions) {
-            println(isValid(instruction))
+        val numNiceStrings = instructions.count {
+            isValid(it)
         }
+
+        println(numNiceStrings)
     }
     
     fun isValid(line: String): Boolean {
@@ -25,7 +27,7 @@ object Day05 {
             val first = line.get(i)
             val second = line.get(i + 1)
 
-            val asStr = "" + first.toString() + second.toString()
+            val asStr = first.toString() + second.toString()
             if(asStr in bannedPairs) {
                 return false
             }
@@ -33,14 +35,15 @@ object Day05 {
             if(first in vowels) {
                 numVowels++
             }
-            if(second in vowels) {
-                numVowels++
-            }
 
             if(!hasPair) {
                 hasPair = first == second
             }
 
+        }
+
+        if(line.last() in vowels) {
+            numVowels++
         }
 
         return numVowels >= 3 && hasPair
