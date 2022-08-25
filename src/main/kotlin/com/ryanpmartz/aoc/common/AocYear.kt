@@ -1,6 +1,6 @@
 package com.ryanpmartz.aoc.common
 
-enum class Year(val value: String) {
+enum class AocYear(val value: String) {
 
     FIFTEEN("2015"),
     SIXTEEN("2016"),
