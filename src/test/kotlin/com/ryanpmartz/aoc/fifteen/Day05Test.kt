@@ -8,15 +8,15 @@ class Day05Test {
 
     @Test
     fun testNiceExamples() {
-        assertTrue(Day05.isValid("aaa"))
-        assertTrue(Day05.isValid("ugknbfddgicrmopn"))
+        assertTrue(Day05.isValidOne("aaa"))
+        assertTrue(Day05.isValidOne("ugknbfddgicrmopn"))
     }
 
     @Test
     fun testNaughtyExamples() {
-        assertFalse(Day05.isValid("jchzalrnumimnmhp"))
-        assertFalse(Day05.isValid("haegwjzuvuyypxyu"))
-        assertFalse(Day05.isValid("dvszwmarrgswjxmb"))
+        assertFalse(Day05.isValidOne("jchzalrnumimnmhp"))
+        assertFalse(Day05.isValidOne("haegwjzuvuyypxyu"))
+        assertFalse(Day05.isValidOne("dvszwmarrgswjxmb"))
 
     }
 }

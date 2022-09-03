@@ -13,13 +13,13 @@ object Day05 {
         val instructions = File("src/main/resources/2015/day05.txt").readLines(Charset.defaultCharset())
 
         val numNiceStrings = instructions.count {
-            isValid(it)
+            isValidOne(it)
         }
 
         println(numNiceStrings)
     }
-    
-    fun isValid(line: String): Boolean {
+
+    fun isValidOne(line: String): Boolean {
         var numVowels = 0
         var hasPair = false
 
@@ -28,7 +28,7 @@ object Day05 {
             val second = line.get(i + 1)
 
             val asStr = first.toString() + second.toString()
-            if(asStr in bannedPairs) {
+            if (asStr in bannedPairs) {
                 return false
             }
 
