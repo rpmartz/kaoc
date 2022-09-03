@@ -1,5 +1,7 @@
-package com.ryanpmartz.aoc.common
+package com.ryanpmartz.aoc.common.io
 
+import com.ryanpmartz.aoc.common.AocDayNumber
+import com.ryanpmartz.aoc.common.AocYear
 import java.io.File
 
 object InputReader {
