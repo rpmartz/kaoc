@@ -3,10 +3,20 @@ package com.ryanpmartz.aoc.fifteen
 import java.io.File
 import java.nio.charset.Charset
 
+
+class Trigram(val letters: String) {
+
+    init {
+        if (letters.length != 3) {
+            throw RuntimeException("$letters is not exactly 3 letters")
+        }
+    }
+}
+
 object Day05 {
 
-    val vowels: Set<Char> = setOf('a', 'e', 'i', 'o', 'u')
-    val bannedPairs: Set<String> = setOf("ab", "cd", "pq", "xy")
+    private val vowels: Set<Char> = setOf('a', 'e', 'i', 'o', 'u')
+    private val bannedPairs: Set<String> = setOf("ab", "cd", "pq", "xy")
 
     @JvmStatic
     fun main(args: Array<String>) {
