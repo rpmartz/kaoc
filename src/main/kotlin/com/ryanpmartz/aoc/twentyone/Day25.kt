@@ -46,9 +46,12 @@ class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, v
                 val positionHasCucumber = currentPosition in state
                 if (positionHasCucumber && state[currentPosition]!!.direction == stepPhase) {
                     val updatedPosition = nextCoordinateFinder(currentPosition)
-                    moves.add(Move(currentPosition, updatedPosition))
-                }
 
+                    val newPositionIsOpen = state[updatedPosition] == null
+                    if (newPositionIsOpen) {
+                        moves.add(Move(currentPosition, updatedPosition))
+                    }
+                }
             }
         }
 
