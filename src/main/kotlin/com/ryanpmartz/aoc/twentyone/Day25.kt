@@ -20,6 +20,11 @@ class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, v
         var numSteps = 0
         var atLeastOneMoved = true
         while (atLeastOneMoved) {
+
+            if (numSteps % 100 == 0) {
+                println("$numSteps completed")
+            }
+
             val eastMoves = runStep(Direction.EAST, ::nextEasternLocation)
             val southMoves = runStep(Direction.SOUTH, ::nextSouthernLocation)
 
@@ -81,6 +86,13 @@ object Day25 {
     @JvmStatic
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.TWENTY_ONE, AocDayNumber.TWENTY_FIVE)
+        val grid = parseGrid(lines)
+
+        val movesUntilSpace = grid.runUntilStop()
+        println(movesUntilSpace)
+    }
+
+    fun parseGrid(lines: List<String>): SeafloorGrid {
         val initialState = mutableMapOf<Coordinate, Cucumber>()
 
         var maxX = 0
@@ -102,10 +114,7 @@ object Day25 {
             maxX = x
         }
 
-        val grid = SeafloorGrid(initialState, maxX, maxY)
-
-        val movesUntilSpace = grid.runUntilStop()
-        println(movesUntilSpace)
+        return SeafloorGrid(initialState, maxX, maxY)
     }
 
 
