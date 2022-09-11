@@ -75,8 +75,8 @@ class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, v
 
 object Day25 {
 
-    val EAST_FACING_CUCUMBER = Cucumber(Direction.EAST)
-    val SOUTH_FACING_CUCUMBER = Cucumber(Direction.SOUTH)
+    private val EAST_FACING_CUCUMBER = Cucumber(Direction.EAST)
+    private val SOUTH_FACING_CUCUMBER = Cucumber(Direction.SOUTH)
 
     @JvmStatic
     fun main(args: Array<String>) {
