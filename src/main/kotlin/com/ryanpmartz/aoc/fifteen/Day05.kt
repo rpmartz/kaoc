@@ -11,6 +11,24 @@ class Trigram(val letters: String) {
             throw RuntimeException("$letters is not exactly 3 letters")
         }
     }
+
+    fun leftBigram(): List<String> {
+        return listOf(letters[0].toString(), letters[1].toString())
+    }
+
+    fun rightBigram(): List<String> {
+        return listOf(letters[1].toString(), letters[2].toString())
+    }
+
+    fun satisfiesRepetitionRequirement(): Boolean {
+        val firstLetter = letters[0].toString()
+        val secondLetter = letters[1].toString()
+        val thirdLetter = letters[2].toString()
+
+        return (firstLetter == thirdLetter)
+    }
+
+
 }
 
 object Day05 {
@@ -22,11 +40,13 @@ object Day05 {
     fun main(args: Array<String>) {
         val instructions = File("src/main/resources/2015/day05.txt").readLines(Charset.defaultCharset())
 
-        val numNiceStrings = instructions.count {
-            isValidOne(it)
-        }
+        println(isValidTwo("line"))
+    }
 
-        println(numNiceStrings)
+    fun isValidTwo(line: String): Boolean {
+        var previousTrigram: String? = null
+
+        return false
     }
 
     fun isValidOne(line: String): Boolean {
