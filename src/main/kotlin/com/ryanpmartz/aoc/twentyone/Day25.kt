@@ -1,6 +1,9 @@
 package com.ryanpmartz.aoc.twentyone
 
+import com.ryanpmartz.aoc.common.AocDayNumber
+import com.ryanpmartz.aoc.common.AocYear
 import com.ryanpmartz.aoc.common.Coordinate
+import com.ryanpmartz.aoc.common.io.InputReader
 
 
 enum class Direction {
@@ -13,7 +16,21 @@ data class Move(val src: Coordinate, val dst: Coordinate)
 
 class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, val maxY: Int) {
 
-    fun runUntilStop() {
+    fun runUntilStop(): Int {
+        var numSteps = 0
+        var atLeastOneMoved = true
+        while (atLeastOneMoved) {
+            val eastMoves = runStep(Direction.EAST, ::nextEasternLocation)
+            val southMoves = runStep(Direction.SOUTH, ::nextSouthernLocation)
+
+            numSteps++
+            atLeastOneMoved = (eastMoves + southMoves) > 0
+        }
+
+        return numSteps
+    }
+
+    fun runStep(stepPhase: Direction, nextCoordinateFinder: (Coordinate) -> Coordinate): Int {
         val moves = mutableListOf<Move>()
 
         // all eastern facing move if they can
@@ -22,8 +39,8 @@ class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, v
                 val currentPosition = Coordinate(x, y)
 
                 val positionHasCucumber = currentPosition in state
-                if (positionHasCucumber && state[currentPosition]!!.direction == Direction.EAST) {
-                    val updatedPosition = nextEasternLocation(currentPosition)
+                if (positionHasCucumber && state[currentPosition]!!.direction == stepPhase) {
+                    val updatedPosition = nextCoordinateFinder(currentPosition)
                     moves.add(Move(currentPosition, updatedPosition))
                 }
 
@@ -36,7 +53,7 @@ class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, v
             state.remove(move.src)
         }
 
-        // all southern facing move if they can
+        return moves.size
     }
 
     private fun nextEasternLocation(coordinate: Coordinate): Coordinate {
@@ -47,14 +64,48 @@ class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, v
         return Coordinate(coordinate.x, coordinate.y + 1)
     }
 
+    private fun nextSouthernLocation(coordinate: Coordinate): Coordinate {
+        if (coordinate.x + 1 > maxX) {
+            return Coordinate(0, coordinate.y)
+        }
 
+        return Coordinate(coordinate.x + 1, coordinate.y)
+    }
 }
 
 object Day25 {
 
+    val EAST_FACING_CUCUMBER = Cucumber(Direction.EAST)
+    val SOUTH_FACING_CUCUMBER = Cucumber(Direction.SOUTH)
+
     @JvmStatic
     fun main(args: Array<String>) {
+        val lines = InputReader.read(AocYear.TWENTY_ONE, AocDayNumber.TWENTY_FIVE)
+        val initialState = mutableMapOf<Coordinate, Cucumber>()
 
+        var maxX = 0
+        var maxY = 0
+
+        lines.forEachIndexed { x, line ->
+            line.forEachIndexed { y, c ->
+                val asStr = c.toString()
+                maxY = y
+                if (asStr == ">") {
+                    initialState[Coordinate(x, y)] = EAST_FACING_CUCUMBER
+                } else if (asStr == "v") {
+                    initialState[Coordinate(x, y)] = SOUTH_FACING_CUCUMBER
+                } else if (asStr != ".") {
+                    throw RuntimeException("Expected one of [., >, v] but got $asStr")
+                }
+            }
+
+            maxX = x
+        }
+
+        val grid = SeafloorGrid(initialState, maxX, maxY)
+
+        val movesUntilSpace = grid.runUntilStop()
+        println(movesUntilSpace)
     }
 
 
