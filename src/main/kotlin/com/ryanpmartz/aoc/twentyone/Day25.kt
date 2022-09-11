@@ -35,7 +35,7 @@ class SeafloorGrid(val state: MutableMap<Coordinate, Cucumber>, val maxX: Int, v
         return numSteps
     }
 
-    fun runStep(stepPhase: Direction, nextCoordinateFinder: (Coordinate) -> Coordinate): Int {
+    private fun runStep(stepPhase: Direction, nextCoordinateFinder: (Coordinate) -> Coordinate): Int {
         val moves = mutableListOf<Move>()
 
         // all eastern facing move if they can
