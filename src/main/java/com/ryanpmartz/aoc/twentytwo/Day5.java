@@ -1,4 +1,4 @@
-package com.ryanpmartz.aoc.playground;
+package com.ryanpmartz.aoc.twentytwo;
 
 import com.ryanpmartz.aoc.common.AocDayNumber;
 import com.ryanpmartz.aoc.common.AocYear;
@@ -39,8 +39,13 @@ public class Day5 {
             Stack<String> srcStack = stacks.get(srcStackNum);
             Stack<String> dstStack = stacks.get(dstStackNum);
 
+            Stack<String> tmpStack = new Stack<String>();
             for (int i = 0; i < numToMove; i++) {
-                dstStack.push(srcStack.pop());
+                tmpStack.push(srcStack.pop());
+            }
+
+            for (int i = 0; i < numToMove; i++) {
+                dstStack.push(tmpStack.pop());
             }
 
             stacks.put(srcStackNum, srcStack);
