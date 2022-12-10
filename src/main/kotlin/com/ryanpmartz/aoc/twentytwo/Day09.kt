@@ -51,11 +51,8 @@ object Day09 {
 
     }
 
-    fun moveUp(rope: Rope): Rope {
-        val head = rope.knots.first()
+    fun move(rope: Rope, newHead: Coordinate): Rope {
         val rest = rope.knots.drop(1)
-
-        val newHead = Coordinate(head.x, head.y + 1)
         val newList = mutableListOf(newHead)
 
         updateRestOfList(newHead, rest, newList)
@@ -65,38 +62,27 @@ object Day09 {
         visited.add(newList.last())
 
         return Rope(newList, visited)
+    }
+
+    fun moveUp(rope: Rope): Rope {
+        val head = rope.knots.first()
+        val newHead = Coordinate(head.x, head.y + 1)
+
+        return move(rope, newHead)
     }
 
     fun moveDown(rope: Rope): Rope {
         val head = rope.knots.first()
-        val rest = rope.knots.drop(1)
-
         val newHead = Coordinate(head.x, head.y - 1)
-        val newList = mutableListOf(newHead)
 
-        updateRestOfList(newHead, rest, newList)
-
-        val visited = hashSetOf<Coordinate>()
-        visited.addAll(rope.visitedCoords)
-        visited.add(newList.last())
-
-        return Rope(newList, visited)
+        return move(rope, newHead)
     }
 
     fun moveRight(rope: Rope): Rope {
         val head = rope.knots.first()
-        val rest = rope.knots.drop(1)
-
         val newHead = Coordinate(head.x + 1, head.y)
-        val newList = mutableListOf(newHead)
 
-        updateRestOfList(newHead, rest, newList)
-
-        val visited = hashSetOf<Coordinate>()
-        visited.addAll(rope.visitedCoords)
-        visited.add(newList.last())
-
-        return Rope(newList, visited)
+        return move(rope, newHead)
     }
 
     fun isAdjacent(p1: Coordinate, p2: Coordinate): Boolean {
@@ -121,18 +107,9 @@ object Day09 {
 
     fun moveLeft(rope: Rope): Rope {
         val head = rope.knots.first()
-        val rest = rope.knots.drop(1)
+        val newHead = Coordinate(head.x - 1, head.y)
 
-        val newHead = Coordinate(head.x + 1, head.y)
-        val newList = mutableListOf(newHead)
-
-        updateRestOfList(newHead, rest, newList)
-
-        val visited = hashSetOf<Coordinate>()
-        visited.addAll(rope.visitedCoords)
-        visited.add(newList.last())
-
-        return Rope(newList, visited)
+        return move(rope, newHead)
     }
 
     fun buildMoveList(lines: List<String>): List<Move> {
