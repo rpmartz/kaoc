@@ -36,19 +36,26 @@ object Day09 {
         )
 
 
+        rope = runSimulation(moves, rope)
+
+        println(rope.visitedCoords.size)
+
+    }
+
+    fun runSimulation(moves: List<Move>, rope: Rope): Rope {
+        var iRope = rope.copy()
         for (move in moves) {
             for (i in move.numSteps downTo 0) {
                 when (move.direction) {
-                    "U" -> rope = moveUp(rope)
-                    "D" -> rope = moveDown(rope)
-                    "L" -> rope = moveLeft(rope)
-                    "R" -> rope = moveRight(rope)
+                    "U" -> iRope = moveUp(iRope)
+                    "D" -> iRope = moveDown(iRope)
+                    "L" -> iRope = moveLeft(iRope)
+                    "R" -> iRope = moveRight(iRope)
                 }
             }
         }
 
-        println(rope.visitedCoords.size)
-
+        return iRope
     }
 
     fun move(rope: Rope, newHead: Coordinate): Rope {
