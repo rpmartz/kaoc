@@ -13,4 +13,15 @@ class Point2DTest {
 
         assertEquals(expected, actual)
     }
+
+    @Test
+    fun testManhattanDistance() {
+        val p1 = Point2D(7, 9)
+        val p2 = Point2D(3, 4)
+
+        val expected = 9
+        val actual = p1.manhattanDistanceTo(p2)
+
+        assertEquals(expected, actual)
+    }
 }

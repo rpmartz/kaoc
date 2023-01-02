@@ -25,4 +25,8 @@ data class Point2D(val x: Int, val y: Int) {
 
         return neighbors
     }
+
+    fun manhattanDistanceTo(p2: Point2D): Int {
+        return kotlin.math.abs(this.x - p2.x) + kotlin.math.abs(this.y - p2.y)
+    }
 }
