@@ -1,55 +1,56 @@
 package com.ryanpmartz.aoc.twentytwo
 
-import com.ryanpmartz.aoc.common.AocDayNumber
-import com.ryanpmartz.aoc.common.AocYear
-import com.ryanpmartz.aoc.common.Point2D
+import com.ryanpmartz.aoc.common.*
 import com.ryanpmartz.aoc.common.io.InputReader
-import com.ryanpmartz.aoc.common.parseInts
+import com.ryanpmartz.aoc.common.parsing.ints
 
-data class Sensor(val location: Point2D, val closestBeacon: Point2D) {
+data class Pair(val sensor: Point2D, val beacon: Point2D) {
 
-    val distanceToClosestBeacon = location.manhattanDistanceTo(closestBeacon)
+    val coverageRange =  sensor.manhattanDistanceTo(beacon)
 }
 
 object Day15 {
+
+    private const val Y = 200000
 
     @JvmStatic
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.TWENTY_TWO, AocDayNumber.FIFTEEN)
 
-        val sensors = mutableListOf<Sensor>()
+        val pairs = mutableSetOf<Pair>()
         for (line in lines) {
-            val coords = parseInts(line)
-            sensors.add(Sensor(Point2D(coords[0], coords[1]), Point2D(coords[2], coords[3])))
+            val coords = ints(line)
+            val sensor = Point2D(coords[0], coords[1])
+            val beacon = Point2D(coords[2], coords[3])
+
+            pairs.add(Pair(sensor, beacon))
         }
 
-        // need to find rightmost point on row where y = 200000
-        var rightmostXCoordinate = 0
+        val ranges = mutableSetOf<IntRange>()
 
-        for (sensor in sensors) {
-            val distanceToRow = kotlin.math.abs(sensor.location.y - 200000)
-            val rightMostIntercept = sensor.location.x + (sensor.location.x - distanceToRow)
-            if (rightMostIntercept > rightmostXCoordinate) {
-                println("${sensor.location} with radius ${sensor.distanceToClosestBeacon} has rightMostIntercept with y = 200000 at $rightMostIntercept")
-                rightmostXCoordinate = rightMostIntercept
+        for(pair in pairs) {
+            val s = pair.sensor
+            val distanceToLine = s.manhattanDistanceTo(Point2D(s.x, Y))
+            if(distanceToLine <= pair.coverageRange) {
+                val horizontalRange = (pair.coverageRange - distanceToLine)
+                val minX = s.x - horizontalRange
+                val maxX = s.x + horizontalRange
+
+                ranges.add(IntRange(minX, maxX))
             }
         }
 
-        var uncoveredPoints = 0
-        for (i in 0..rightmostXCoordinate) {
-            val point = Point2D(i, 200000)
-            for (sensor in sensors) {
-                val distanceToSensor = point.manhattanDistanceTo(sensor.location)
-                if (distanceToSensor <= sensor.distanceToClosestBeacon) {
-                    break
-                }
-            }
 
-            uncoveredPoints++
+        val coveredPoints = mutableSetOf<Int>()
+        for (range in ranges) {
+            for (i in range) {
+                coveredPoints.add(i)
+            }
         }
 
-        println(uncoveredPoints)
-
+        println(coveredPoints.size)
 
     }
+
+
 }
