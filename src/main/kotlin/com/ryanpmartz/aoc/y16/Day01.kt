@@ -22,15 +22,13 @@ fun parseMoves(line: String): List<Move> {
     for (move in moves) {
         val firstLetter = move.first().toString()
         val distance = move.substring(1).toInt()
-
-        if ("R" == firstLetter) {
-            parsedMoves.add(Move(TurnDirection.RIGHT, distance))
-        } else if ("L" == firstLetter) {
-            parsedMoves.add(Move(TurnDirection.LEFT, distance))
-        } else {
-            throw RuntimeException("Do not know how to handle $firstLetter")
+        val direction = when (firstLetter) {
+            "R" -> TurnDirection.RIGHT
+            "L" -> TurnDirection.LEFT
+            else -> throw RuntimeException("Unreachable")
         }
 
+        parsedMoves.add(Move(direction, distance))
     }
 
     return parsedMoves
@@ -78,15 +76,25 @@ object Day01 {
     @JvmStatic
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.SIXTEEN, AocDayNumber.ONE)
-        val input = lines[0]
+        val input = "R8, R4, R4, R8"
         val moves = parseMoves(input)
 
+        val visited = mutableSetOf<Point2D>()
         var location = Point2D(0, 0)
+        visited.add(location)
         var facing = CardinalDirection.NORTH
+
         for (move in moves) {
             val newDirection = determineNewDirection(facing, move.direction)
             facing = newDirection
+            val oldLocation = location
             location = move(location, facing, move.distance)
+
+            if (visited.contains(location)) {
+                break
+            } else {
+                visited.add(location)
+            }
         }
 
         println("Ended at $location")
