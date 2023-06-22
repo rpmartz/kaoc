@@ -4,33 +4,6 @@ import java.io.File
 import java.nio.charset.Charset
 
 
-class Trigram(val letters: String) {
-
-    init {
-        if (letters.length != 3) {
-            throw RuntimeException("$letters is not exactly 3 letters")
-        }
-    }
-
-    fun leftBigram(): List<String> {
-        return listOf(letters[0].toString(), letters[1].toString())
-    }
-
-    fun rightBigram(): List<String> {
-        return listOf(letters[1].toString(), letters[2].toString())
-    }
-
-    fun satisfiesRepetitionRequirement(): Boolean {
-        val firstLetter = letters[0].toString()
-        val secondLetter = letters[1].toString()
-        val thirdLetter = letters[2].toString()
-
-        return (firstLetter == thirdLetter)
-    }
-
-
-}
-
 object Day05 {
 
     private val vowels: Set<Char> = setOf('a', 'e', 'i', 'o', 'u')
@@ -40,13 +13,45 @@ object Day05 {
     fun main(args: Array<String>) {
         val instructions = File("src/main/resources/2015/day05.txt").readLines(Charset.defaultCharset())
 
-        println(isValidTwo("line"))
+        val count = instructions.stream()
+            .filter { isValidTwo(it) }
+            .count()
+
+        println(count)
     }
 
     fun isValidTwo(line: String): Boolean {
-        var previousTrigram: String? = null
+        var bigrams = mutableSetOf<String>()
 
-        return false
+        var previousBigram: String? = null
+
+        var hasRepeatingBigram = false
+        var hasValidTrigram = false
+
+        for (i in 1 until line.length) {
+            var bigram = "" + line[i - 1] + line[i]
+            var trigram: String?
+            if (i >= 2) {
+                trigram = line[i - 2] + bigram
+                if (validTrigram(trigram)) {
+                    hasValidTrigram = true
+                }
+            }
+
+            if (bigrams.contains(bigram) && bigram != previousBigram) {
+                hasRepeatingBigram = true
+            } else {
+                bigrams.add(bigram)
+            }
+
+            previousBigram = bigram
+        }
+
+        return hasValidTrigram && hasRepeatingBigram
+    }
+
+    private fun validTrigram(trigram: String): Boolean {
+        return (trigram[0] == trigram[2]) && trigram[1] != trigram[0]
     }
 
     fun isValidOne(line: String): Boolean {
