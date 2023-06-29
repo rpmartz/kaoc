@@ -29,4 +29,20 @@ data class Point2D(val x: Int, val y: Int) {
     fun manhattanDistanceTo(p2: Point2D): Int {
         return kotlin.math.abs(this.x - p2.x) + kotlin.math.abs(this.y - p2.y)
     }
+
+    fun moveRight(): Point2D {
+        return copy(x = x + 1)
+    }
+
+    fun moveUp(): Point2D {
+        return copy(y = y + 1)
+    }
+
+    fun moveLeft(): Point2D {
+        return copy(x = x - 1)
+    }
+
+    fun moveDown(): Point2D {
+        return copy(y = y - 1)
+    }
 }
