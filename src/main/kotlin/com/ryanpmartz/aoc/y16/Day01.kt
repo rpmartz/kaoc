@@ -75,26 +75,29 @@ object Day01 {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val lines = InputReader.read(AocYear.SIXTEEN, AocDayNumber.ONE)
-        val input = "R8, R4, R4, R8"
+        val input = InputReader.readAll(AocYear.SIXTEEN, AocDayNumber.ONE)
         val moves = parseMoves(input)
 
         val visited = mutableSetOf<Point2D>()
         var location = Point2D(0, 0)
-        visited.add(location)
         var facing = CardinalDirection.NORTH
 
         for (move in moves) {
-            val newDirection = determineNewDirection(facing, move.direction)
-            facing = newDirection
-            val oldLocation = location
-            location = move(location, facing, move.distance)
+            val newHeading = determineNewDirection(facing, move.direction)
+            facing = newHeading
 
-            if (visited.contains(location)) {
-                break
-            } else {
-                visited.add(location)
+            val destination = move(location, facing, move.distance)
+
+            val pointsBetween = location.pointsBetween(destination)
+            for (point in pointsBetween) {
+                if (point != location && visited.contains(point)) {
+                    println("Revisited $point. Distance: ${point.manhattanDistanceTo(Point2D(0, 0))}")
+                }
+
+                visited.add(point)
             }
+
+            location = destination
         }
 
         println("Ended at $location")
