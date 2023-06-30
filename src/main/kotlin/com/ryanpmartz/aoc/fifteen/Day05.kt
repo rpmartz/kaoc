@@ -51,7 +51,7 @@ object Day05 {
     }
 
     private fun validTrigram(trigram: String): Boolean {
-        return (trigram[0] == trigram[2]) && trigram[1] != trigram[0]
+        return trigram[0] == trigram[2]
     }
 
     fun isValidOne(line: String): Boolean {
