@@ -45,4 +45,39 @@ data class Point2D(val x: Int, val y: Int) {
     fun moveDown(): Point2D {
         return copy(y = y - 1)
     }
+
+    fun pointsBetween(other: Point2D): List<Point2D> {
+        val onHorizontalLine = this.y == other.y
+        val onVerticalLine = this.x == other.x
+
+        assert(onHorizontalLine || onVerticalLine) { "Points must be in straight line" }
+
+        val pointsBetween = mutableListOf<Point2D>()
+        if (onVerticalLine) {
+            if (other.y > this.y) {
+                for (y in this.y..other.y) {
+                    pointsBetween.add(Point2D(this.x, y))
+                }
+            } else {
+                for (y in this.y downTo other.y) {
+                    pointsBetween.add(Point2D(this.x, y))
+                }
+            }
+
+
+        } else {
+            if (other.x > this.x) {
+                for (x in this.x..other.x) {
+                    pointsBetween.add(Point2D(x, this.y))
+                }
+            } else {
+                for (x in this.x downTo other.x) {
+                    pointsBetween.add(Point2D(x, this.y))
+                }
+            }
+
+        }
+
+        return pointsBetween
+    }
 }
