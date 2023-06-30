@@ -3,6 +3,7 @@ package com.ryanpmartz.aoc.common.io
 import com.ryanpmartz.aoc.common.AocDayNumber
 import com.ryanpmartz.aoc.common.AocYear
 import java.io.File
+import java.nio.charset.Charset
 
 object InputReader {
 
@@ -11,6 +12,10 @@ object InputReader {
 
     fun read(year: AocYear, day: AocDayNumber): List<String> {
         return read(year, day, IDENTITY)
+    }
+
+    fun readAll(year: AocYear, day: AocDayNumber): String {
+        return File("$PATH_PREFIX/${year.value}/day${day.value}.txt").readText(Charset.defaultCharset())
     }
 
     fun <T> read(year: AocYear, day: AocDayNumber, transformFn: (line: String) -> T): List<T> {
