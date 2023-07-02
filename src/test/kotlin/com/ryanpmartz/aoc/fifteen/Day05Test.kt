@@ -1,14 +1,15 @@
 package com.ryanpmartz.aoc.fifteen
 
-import kotlin.test.Test
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class Day05Test {
 
     @Test
     fun testNiceExamples() {
         assertTrue(Day05.isValidOne("aaa"))
+        assertTrue(Day05.isValidOne("ugknbfddgicrmopn"))
         assertTrue(Day05.isValidOne("ugknbfddgicrmopn"))
     }
 
