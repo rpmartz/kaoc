@@ -1,5 +1,12 @@
 package com.ryanpmartz.aoc.common
 
+fun parsePoint(s: String): Point2D {
+    val components = s.split(",")
+    assert(components.size == 2)
+
+    return Point2D(components[0].toInt(), components[1].toInt())
+}
+
 data class Point2D(val x: Int, val y: Int) {
 
     fun cardinalNeighbors(): Set<Point2D> {
