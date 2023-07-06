@@ -43,11 +43,6 @@ object Day14 {
             if (canMoveTo(straightDown)) {
                 println("Moving from $currentLocation to $straightDown")
                 currentLocation = straightDown
-                if (currentLocation.y > MAX_DEPTH) {
-                    println("$currentLocation exceeds MAX_DEPTH: $MAX_DEPTH")
-                    return false
-                }
-
             } else if (canMoveTo(diagonalLeft)) {
                 println("Moving from $currentLocation to $diagonalLeft")
                 currentLocation = diagonalLeft
@@ -58,7 +53,7 @@ object Day14 {
                 GRID[currentLocation] = GridContents.SAND
                 NUM_SETTLED_SAND += 1
                 println("Sand settled at $currentLocation. Total grains settled: $NUM_SETTLED_SAND")
-                return true
+                return currentLocation != SAND_ORIGIN_POINT // stop when cavern is full
             }
         }
 
@@ -82,9 +77,6 @@ object Day14 {
 
                 val pointsBetween = start.pointsBetween(end)
                 pointsBetween.forEach {
-                    if (it.x == 500) {
-                        println("Rock at $it")
-                    }
                     GRID[it] = GridContents.ROCK
                 }
             }
@@ -93,7 +85,13 @@ object Day14 {
     }
 
     private fun canMoveTo(point: Point2D): Boolean {
-        return GRID[point] != GridContents.SAND && GRID[point] != GridContents.ROCK
+        return GRID[point] != GridContents.SAND
+                && GRID[point] != GridContents.ROCK
+                && point.y != floorDepth()
+    }
+
+    private fun floorDepth(): Int {
+        return MAX_DEPTH + 2
     }
 
 }
