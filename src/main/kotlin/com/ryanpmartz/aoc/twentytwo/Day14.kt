@@ -9,10 +9,10 @@ import com.ryanpmartz.aoc.common.parsePoint
 
 object Day14 {
 
-    enum class GridContents(val textRepresentation: String) {
+    enum class GridContents {
 
-        ROCK("#"),
-        SAND("o"),
+        ROCK,
+        SAND,
     }
 
     private val SAND_ORIGIN_POINT = Point2D(500, 0)
