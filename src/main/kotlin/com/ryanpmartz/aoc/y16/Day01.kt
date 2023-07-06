@@ -88,7 +88,7 @@ object Day01 {
 
             val destination = move(location, facing, move.distance)
 
-            val pointsBetween = location.pointsBetween(destination)
+            val pointsBetween = location.straightLineTo(destination)
             for (point in pointsBetween) {
                 if (point != location && visited.contains(point)) {
                     println("Revisited $point. Distance: ${point.manhattanDistanceTo(Point2D(0, 0))}")

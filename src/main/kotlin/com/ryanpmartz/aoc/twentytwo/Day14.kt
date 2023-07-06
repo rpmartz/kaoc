@@ -75,7 +75,7 @@ object Day14 {
                 // need way to figure out when sand falls into the abyss
                 MAX_DEPTH = maxOf(MAX_DEPTH, start.y, end.y)
 
-                val pointsBetween = start.pointsBetween(end)
+                val pointsBetween = start.straightLineTo(end)
                 pointsBetween.forEach {
                     GRID[it] = GridContents.ROCK
                 }

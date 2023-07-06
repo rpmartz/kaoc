@@ -37,7 +37,7 @@ class Point2DTest {
             Point2D(3, 0)
         )
 
-        val actual = p1.pointsBetween(p2)
+        val actual = p1.straightLineTo(p2)
         assertEquals(expected, actual)
 
     }
@@ -54,7 +54,7 @@ class Point2DTest {
             Point2D(0, 0),
         )
 
-        val actual = p1.pointsBetween(p2)
+        val actual = p1.straightLineTo(p2)
         assertEquals(expected, actual)
 
     }
@@ -71,7 +71,7 @@ class Point2DTest {
             Point2D(0, 3)
         )
 
-        val actual = p1.pointsBetween(p2)
+        val actual = p1.straightLineTo(p2)
         assertEquals(expected, actual)
 
     }
@@ -88,7 +88,7 @@ class Point2DTest {
             Point2D(0, 0),
         )
 
-        val actual = p1.pointsBetween(p2)
+        val actual = p1.straightLineTo(p2)
         assertEquals(expected, actual)
 
     }

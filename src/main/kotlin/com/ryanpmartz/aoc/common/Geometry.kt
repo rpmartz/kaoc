@@ -53,7 +53,7 @@ data class Point2D(val x: Int, val y: Int) {
         return copy(y = y - 1)
     }
 
-    fun pointsBetween(other: Point2D): List<Point2D> {
+    fun straightLineTo(other: Point2D): List<Point2D> {
         val onHorizontalLine = this.y == other.y
         val onVerticalLine = this.x == other.x
 
