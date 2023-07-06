@@ -13,7 +13,6 @@ object Day14 {
 
         ROCK("#"),
         SAND("o"),
-        OPEN(".")
     }
 
     private val SAND_ORIGIN_POINT = Point2D(500, 0)
@@ -50,15 +49,15 @@ object Day14 {
                 }
 
             } else if (canMoveTo(diagonalLeft)) {
-                print("Moving from $currentLocation to $diagonalLeft")
+                println("Moving from $currentLocation to $diagonalLeft")
                 currentLocation = diagonalLeft
             } else if (canMoveTo(diagonalRight)) {
-                print("Moving from $currentLocation to $diagonalRight")
+                println("Moving from $currentLocation to $diagonalRight")
                 currentLocation = diagonalRight
             } else {
                 GRID[currentLocation] = GridContents.SAND
                 NUM_SETTLED_SAND += 1
-                print("Sand settled at $currentLocation. Total grains settled: $NUM_SETTLED_SAND")
+                println("Sand settled at $currentLocation. Total grains settled: $NUM_SETTLED_SAND")
                 return true
             }
         }
