@@ -1,6 +1,8 @@
 package com.ryanpmartz.aoc.twentytwo
 
-import com.ryanpmartz.aoc.common.*
+import com.ryanpmartz.aoc.common.AocDayNumber
+import com.ryanpmartz.aoc.common.AocYear
+import com.ryanpmartz.aoc.common.Point2D
 import com.ryanpmartz.aoc.common.io.InputReader
 import com.ryanpmartz.aoc.common.parsing.ints
 
@@ -16,15 +18,7 @@ object Day15 {
     @JvmStatic
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.TWENTY_TWO, AocDayNumber.FIFTEEN)
-
-        val pairs = mutableSetOf<Pair>()
-        for (line in lines) {
-            val coords = ints(line)
-            val sensor = Point2D(coords[0], coords[1])
-            val beacon = Point2D(coords[2], coords[3])
-
-            pairs.add(Pair(sensor, beacon))
-        }
+        val pairs = parsePairsFromLines(lines)
 
         val ranges = mutableSetOf<IntRange>()
 
@@ -50,6 +44,19 @@ object Day15 {
 
         println(coveredPoints.size)
 
+    }
+
+    fun parsePairsFromLines(lines: List<String>): Set<Pair> {
+        val pairs = mutableSetOf<Pair>()
+        for (line in lines) {
+            val coords = ints(line)
+            val sensor = Point2D(coords[0], coords[1])
+            val beacon = Point2D(coords[2], coords[3])
+
+            pairs.add(Pair(sensor, beacon))
+        }
+
+        return pairs
     }
 
 
