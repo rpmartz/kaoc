@@ -54,11 +54,9 @@ class Day15Test {
 
         for (i in coveredCoords) {
             if (!expected.contains(i)) {
-                println("$i is in `coveredCoords` and is not expecte")
+                println("$i is in `coveredCoords` and is not expected")
             }
         }
-
-
 
         assertEquals(26, coveredCoords.sorted().size)
     }
