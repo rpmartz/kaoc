@@ -5,6 +5,7 @@ import com.ryanpmartz.aoc.common.AocYear
 import com.ryanpmartz.aoc.common.Point2D
 import com.ryanpmartz.aoc.common.io.InputReader
 import com.ryanpmartz.aoc.common.parsing.ints
+import kotlin.math.absoluteValue
 
 data class Pair(val sensor: Point2D, val beacon: Point2D) {
 
@@ -44,6 +45,35 @@ object Day15 {
 
         println(coveredPoints.size)
 
+    }
+
+    fun coveredCoordinatesOnLine(pairs: Collection<Pair>, yCoordinate: Int): Set<Int> {
+        var coveredCoords = mutableSetOf<Int>()
+
+        for (pair in pairs) {
+            val sensor = pair.sensor
+            val beacon = pair.beacon
+
+            val distanceToLine = (sensor.y - yCoordinate).absoluteValue
+            if (distanceToLine <= pair.coverageRange) {
+                val horizontalRange = (pair.coverageRange - distanceToLine)
+                val minX = sensor.x - horizontalRange
+                val maxX = sensor.x + horizontalRange
+
+                println("$sensor is $distanceToLine from y line with range of ${pair.coverageRange}: [$minX, $maxX]")
+
+                for (x in minX..maxX) {
+                    coveredCoords.add(x)
+                }
+
+            }
+
+            if (beacon.y == yCoordinate) {
+                coveredCoords.add(beacon.y)
+            }
+        }
+
+        return coveredCoords
     }
 
     fun parsePairsFromLines(lines: List<String>): Set<Pair> {
