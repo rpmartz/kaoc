@@ -69,7 +69,7 @@ object Day15 {
             }
 
             if (beacon.y == yCoordinate) {
-                coveredCoords.add(beacon.y)
+                coveredCoords.remove(beacon.x)
             }
         }
 

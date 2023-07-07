@@ -43,6 +43,23 @@ class Day15Test {
         val pairs = parsePairsFromLines(lines)
         val coveredCoords = coveredCoordinatesOnLine(pairs, 10)
 
+        val expected = mutableSetOf<Int>()
+        for (i in -2..24) {
+            if (!coveredCoords.contains(i)) {
+                println("Expected $i to be covered but it is not in `coveredCoords`")
+            }
+
+            expected.add(i)
+        }
+
+        for (i in coveredCoords) {
+            if (!expected.contains(i)) {
+                println("$i is in `coveredCoords` and is not expecte")
+            }
+        }
+
+
+
         assertEquals(26, coveredCoords.sorted().size)
     }
 }
