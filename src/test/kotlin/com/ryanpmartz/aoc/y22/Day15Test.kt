@@ -1,7 +1,7 @@
-package com.ryanpmartz.aoc.twentytwo
+package com.ryanpmartz.aoc.y22
 
-import com.ryanpmartz.aoc.twentytwo.Day15.coveredCoordinatesOnLine
-import com.ryanpmartz.aoc.twentytwo.Day15.parsePairsFromLines
+import com.ryanpmartz.aoc.y22.Day15.coveredCoordinatesOnLine
+import com.ryanpmartz.aoc.y22.Day15.parsePairsFromLines
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

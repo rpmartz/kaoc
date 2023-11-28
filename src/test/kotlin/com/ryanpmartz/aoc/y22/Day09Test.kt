@@ -1,8 +1,8 @@
-package com.ryanpmartz.aoc.twentytwo
+package com.ryanpmartz.aoc.y22
 
 import com.ryanpmartz.aoc.common.Coordinate
-import com.ryanpmartz.aoc.twentytwo.Day09.buildMoveList
-import com.ryanpmartz.aoc.twentytwo.Day09.runSimulation
+import com.ryanpmartz.aoc.y22.Day09.buildMoveList
+import com.ryanpmartz.aoc.y22.Day09.runSimulation
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
