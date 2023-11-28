@@ -1,4 +1,4 @@
-package com.ryanpmartz.aoc.twentyone
+package com.ryanpmartz.aoc.y21
 
 import com.ryanpmartz.aoc.common.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals

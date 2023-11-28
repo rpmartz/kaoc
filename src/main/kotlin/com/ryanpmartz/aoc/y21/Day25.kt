@@ -1,4 +1,4 @@
-package com.ryanpmartz.aoc.twentyone
+package com.ryanpmartz.aoc.y21
 
 import com.ryanpmartz.aoc.common.AocDayNumber
 import com.ryanpmartz.aoc.common.AocYear

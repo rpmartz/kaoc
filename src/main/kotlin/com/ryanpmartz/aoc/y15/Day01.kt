@@ -1,4 +1,4 @@
-package com.ryanpmartz.aoc.fifteen
+package com.ryanpmartz.aoc.y15
 
 import java.io.File
 import java.nio.charset.Charset

@@ -1,4 +1,4 @@
-package com.ryanpmartz.aoc.fifteen
+package com.ryanpmartz.aoc.y15
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
