@@ -4,7 +4,7 @@ import com.ryanpmartz.aoc.common.AocDayNumber
 import com.ryanpmartz.aoc.common.AocYear
 import com.ryanpmartz.aoc.common.Point2D
 import com.ryanpmartz.aoc.common.io.InputReader
-import com.ryanpmartz.aoc.common.parsePoint
+import com.ryanpmartz.aoc.common.parseCommaDelimitedPoint
 
 
 object Day14 {
@@ -65,7 +65,7 @@ object Day14 {
         for (line in lines) {
             val coords = line.split("->")
             val points = coords
-                .map { parsePoint(it.trim()) }
+                .map { parseCommaDelimitedPoint(it.trim()) }
 
             val segments = points.zipWithNext()
             for (segment in segments) {

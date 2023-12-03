@@ -1,6 +1,6 @@
 package com.ryanpmartz.aoc.common
 
-fun parsePoint(s: String): Point2D {
+fun parseCommaDelimitedPoint(s: String): Point2D {
     val components = s.split(",")
     assert(components.size == 2)
 
