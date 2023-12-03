@@ -93,5 +93,15 @@ object Day03 {
             }
 
         }
+
+        var total = 0
+        for (number in numbers) {
+            val intersection = symbolLocations.intersect(number.neighbors())
+            if (!intersection.isEmpty()) {
+                total += number.intValue()
+            }
+        }
+
+        println(total)
     }
 }
