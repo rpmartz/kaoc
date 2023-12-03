@@ -11,11 +11,12 @@ data class NumberOnBoard(val startIndex: Point2D, val textValue: StringBuffer) {
         return Integer.valueOf(textValue.toString())
     }
 
+    // (0, 0)
     fun points(): Set<Point2D> {
         val ps = mutableSetOf<Point2D>()
 
-        for (i in 0..textValue.length) {
-            ps.add(Point2D(this.startIndex.x + i, this.startIndex.y))
+        for (i in 0 until textValue.length) {
+            ps.add(Point2D(this.startIndex.x, this.startIndex.y + i))
         }
 
         return ps
@@ -97,7 +98,7 @@ object Day03 {
         var total = 0
         for (number in numbers) {
             val intersection = symbolLocations.intersect(number.neighbors())
-            if (!intersection.isEmpty()) {
+            if (intersection.isNotEmpty()) {
                 total += number.intValue()
             }
         }
