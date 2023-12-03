@@ -24,6 +24,7 @@ data class Point2D(val x: Int, val y: Int) {
         for (i in offsets) {
             for (j in offsets) {
                 if (i == 0 && j == 0) {
+                    // skip point whose neighbors we are generating
                     continue
                 }
                 neighbors.add(Point2D(x + i, y + j))
