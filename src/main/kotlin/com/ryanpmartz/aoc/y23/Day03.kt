@@ -40,7 +40,6 @@ object Day03 {
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.TWENTY_THREE, AocDayNumber.THREE)
 
-        val board = mutableMapOf<Point2D, String>()
         val symbolLocations = mutableSetOf<Point2D>()
         val numbers = mutableSetOf<NumberOnBoard>()
 
@@ -54,7 +53,6 @@ object Day03 {
                 val number = NumberOnBoard(currentNumStartPoint!!, numberStringBuffer)
                 numbers.add(number)
 
-                println("Added EOL number ${number.intValue()} starting at ${number.startIndex}")
                 currentNumStartPoint = null
             }
             // there is no previous character for a new line
@@ -63,14 +61,12 @@ object Day03 {
             line.forEachIndexed { y, character ->
 
                 if (character != '.' && !character.isDigit()) {
-                    println("Added $character to symbols")
                     symbolLocations.add(Point2D(x, y))
 
                     if (currentNumStartPoint != null) {
                         val number = NumberOnBoard(currentNumStartPoint!!, numberStringBuffer)
                         numbers.add(number)
 
-                        println("Added AFTER SYMBOL number ${number.intValue()} starting at ${number.startIndex}")
                         currentNumStartPoint = null
                     }
                 } else if (character.isDigit() && (previousChar == null || !previousChar?.isDigit()!!)) {
@@ -83,8 +79,6 @@ object Day03 {
                 } else if (!character.isDigit() && (previousChar != null && previousChar?.isDigit()!!)) {
                     val number = NumberOnBoard(currentNumStartPoint!!, numberStringBuffer)
                     numbers.add(number)
-
-                    println("Added number ${number.intValue()} starting at ${number.startIndex}")
 
                     currentNumStartPoint = null
                 }
