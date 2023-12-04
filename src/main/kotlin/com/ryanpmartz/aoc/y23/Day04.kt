@@ -21,7 +21,7 @@ data class ScratchoffCard(val winningNumbers: Set<Int>, val cardNumbers: List<In
 
 object Day04 {
 
-    fun parseSpaceDelimitedNumbers(s: String): List<Int> {
+    private fun parseSpaceDelimitedNumbers(s: String): List<Int> {
         val textNumbers = s.trim().split(" ")
 
 
@@ -29,10 +29,7 @@ object Day04 {
         return textNumbers.filter { it.isNotEmpty() }.map { it.toInt() }
     }
 
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val lines = InputReader.read(AocYear.TWENTY_THREE, AocDayNumber.FOUR)
-
+    private fun partOne(lines: List<String>) {
         val cards = mutableListOf<ScratchoffCard>()
 
         for (line in lines) {
@@ -54,6 +51,11 @@ object Day04 {
         }
 
         println(total)
+    }
 
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val lines = InputReader.read(AocYear.TWENTY_THREE, AocDayNumber.FOUR)
+        partOne(lines)
     }
 }
