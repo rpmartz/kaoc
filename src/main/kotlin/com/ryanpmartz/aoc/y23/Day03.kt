@@ -61,7 +61,9 @@ object Day03 {
             line.forEachIndexed { y, character ->
 
                 if (character != '.' && !character.isDigit()) {
-                    symbolLocations.add(Point2D(x, y))
+                    if (character == '*') {
+                        symbolLocations.add(Point2D(x, y))
+                    }
 
                     if (currentNumStartPoint != null) {
                         val number = NumberOnBoard(currentNumStartPoint!!, numberStringBuffer)
@@ -90,10 +92,41 @@ object Day03 {
         }
 
         var total = 0
+
         for (number in numbers) {
-            val intersection = symbolLocations.intersect(number.neighbors())
-            if (intersection.isNotEmpty()) {
-                total += number.intValue()
+            var numAdjacentSymbols = 0
+
+            val neighbors = number.neighbors()
+
+            for (symbolLocation in symbolLocations) {
+                if (neighbors.contains(symbolLocation)) {
+                    numAdjacentSymbols += 1
+                    break
+                }
+            }
+
+
+        }
+
+
+        val symbolMap = mutableMapOf<Point2D, MutableList<NumberOnBoard>>()
+
+        for (symbolLocation in symbolLocations) {
+            for (number in numbers) {
+                if (symbolLocation in number.neighbors()) {
+                    val currentNumbers = symbolMap.getOrDefault(symbolLocation, ArrayList())
+                    currentNumbers.add(number)
+
+                    symbolMap.put(symbolLocation, currentNumbers)
+                }
+            }
+
+        }
+
+        for (entry in symbolMap.entries) {
+            val nums = entry.value
+            if (nums.size == 2) {
+                total += nums[0].intValue() * nums[1].intValue()
             }
         }
 
