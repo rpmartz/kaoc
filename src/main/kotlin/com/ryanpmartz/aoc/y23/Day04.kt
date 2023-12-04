@@ -74,7 +74,7 @@ object Day04 {
             cardMap[card.cardId] = card
         }
 
-        var cardStack = ArrayDeque(cards)
+        val cardStack = ArrayDeque(cards)
 
         while (cardStack.any()) {
             totalCards += 1L
@@ -93,9 +93,7 @@ object Day04 {
     @JvmStatic
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.TWENTY_THREE, AocDayNumber.FOUR)
-//        partOne(lines)
+        partOne(lines)
         partTwo(lines)
-
-        // 1103
     }
 }
