@@ -4,6 +4,13 @@ import com.ryanpmartz.aoc.common.AocDayNumber
 import com.ryanpmartz.aoc.common.AocYear
 import com.ryanpmartz.aoc.common.io.InputReader
 
+data class SourceToDestinationSeries(val destinationStart: Long, val sourceStart: Long, val range: Long) {
+
+    fun containsKey(key: Long): Boolean {
+        return key >= sourceStart && key <= sourceStart + range - 1
+    }
+}
+
 object Day05 {
 
     @JvmStatic
@@ -26,4 +33,6 @@ object Day05 {
         println(humidityToLocationMap)
 
     }
+
+
 }
