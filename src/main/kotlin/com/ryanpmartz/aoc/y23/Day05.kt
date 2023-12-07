@@ -3,7 +3,7 @@ package com.ryanpmartz.aoc.y23
 import com.ryanpmartz.aoc.common.AocDayNumber
 import com.ryanpmartz.aoc.common.AocYear
 import com.ryanpmartz.aoc.common.io.InputReader
-import kotlin.math.min
+import java.util.concurrent.atomic.AtomicLong
 
 data class SourceToDestinationSeries(val destinationStart: Long, val sourceStart: Long, val range: Long) {
 
@@ -30,13 +30,18 @@ data class ElementMap(val allSeries: List<SourceToDestinationSeries>) {
     }
 }
 
+data class SeedRange(val start: Long, val range: Long) {
+
+    fun end(): Long {
+        return start + range
+    }
+}
+
 object Day05 {
 
     @JvmStatic
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.TWENTY_THREE, AocDayNumber.FIVE)
-
-        var minSeen = Long.MAX_VALUE
 
         val seedToSoilMap = ElementMap(parseSeries(lines.subList(3, 14)))
         val soilToFertilizerMap = ElementMap(parseSeries(lines.subList(15, 25)))
@@ -46,38 +51,38 @@ object Day05 {
         val temperatureToHumidityMap = ElementMap(parseSeries(lines.subList(164, 192)))
         val humidityToLocationMap = ElementMap(parseSeries(lines.subList(193, 221)))
 
-        val seeds = listOf(
-            2019933646L,
-            2719986L,
-            2982244904L,
-            337763798L,
-            445440L,
-            255553492L,
-            1676917594L,
-            196488200L,
-            3863266382L,
-            36104375L,
-            1385433279L,
-            178385087L,
-            2169075746L,
-            171590090L, 572674563L, 5944769L, 835041333L,
-            194256900L, 664827176L, 42427020L
+        val seedRanges = listOf(
+            SeedRange(2019933646L, 2719986L),
+            SeedRange(2982244904L, 337763798L),
+            SeedRange(445440L, 255553492L),
+            SeedRange(1676917594L, 196488200L),
+            SeedRange(3863266382L, 36104375L),
+            SeedRange(1385433279L, 178385087L),
+            SeedRange(2169075746L, 171590090L),
+            SeedRange(572674563L, 5944769L),
+            SeedRange(835041333L, 194256900L),
+            SeedRange(664827176L, 42427020),
         )
 
-        for (seed in seeds) {
+        val minSeen = AtomicLong(Long.MAX_VALUE)
 
-            val soil = seedToSoilMap.get(seed)
-            val fertilizer = soilToFertilizerMap.get(soil)
-            val water = fertilizerToWaterMap.get(fertilizer)
-            val light = waterToLightMap.get(water)
-            val temperature = lightToTemperatureMap.get(light)
-            val humidity = temperatureToHumidityMap.get(temperature)
-            val location = humidityToLocationMap.get(humidity)
+        seedRanges.parallelStream().forEach { range ->
+            for (seed in range.start until range.end()) {
+                val soil = seedToSoilMap.get(seed)
+                val fertilizer = soilToFertilizerMap.get(soil)
+                val water = fertilizerToWaterMap.get(fertilizer)
+                val light = waterToLightMap.get(water)
+                val temperature = lightToTemperatureMap.get(light)
+                val humidity = temperatureToHumidityMap.get(temperature)
+                val location = humidityToLocationMap.get(humidity)
 
-            minSeen = min(location, minSeen)
+                if (location < minSeen.get()) {
+                    minSeen.getAndSet(location)
+                }
+            }
         }
 
-        println(minSeen)
+        println(minSeen.get())
 
     }
 
