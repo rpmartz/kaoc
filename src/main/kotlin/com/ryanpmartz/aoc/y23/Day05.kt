@@ -9,6 +9,11 @@ data class SourceToDestinationSeries(val destinationStart: Long, val sourceStart
     fun containsKey(key: Long): Boolean {
         return key >= sourceStart && key <= sourceStart + range - 1
     }
+
+    fun getValue(key: Long): Long {
+        val offset = key - sourceStart
+        return destinationStart + offset
+    }
 }
 
 object Day05 {
