@@ -35,6 +35,21 @@ data class CamelCardHand(val cards: String, val bid: Int) {
     fun getFirstCardScore(): Int {
         return cardValueMap[cards[0]]!!
     }
+    fun secondCardScore(): Int {
+        return cardValueMap[cards[1]]!!
+    }
+
+    fun thirdCardScore(): Int {
+        return cardValueMap[cards[2]]!!
+    }
+
+    fun fourthCardScore(): Int {
+        return cardValueMap[cards[3]]!!
+    }
+
+    fun fifthCardScore(): Int {
+        return cardValueMap[cards[4]]!!
+    }
 
     fun getScore(): Int {
         if (cardCounts.keys.size == 1) {
@@ -74,6 +89,29 @@ object Day07 {
     fun main(args: Array<String>) {
         val lines = InputReader.read(AocYear.TWENTY_THREE, AocDayNumber.SEVEN)
 
-        val counter = "29QA4".groupingBy { it }.eachCount()
+        var hands = mutableListOf<CamelCardHand>()
+        for (line in lines) {
+            val parts = line.split(" ")
+            hands.add(CamelCardHand(parts[0], parts[1].toInt()))
+        }
+
+        val sorted = hands.sortedWith(
+            compareBy(CamelCardHand::getScore)
+                .then(compareBy(CamelCardHand::getFirstCardScore))
+                .then(compareBy(CamelCardHand::secondCardScore))
+                .then(compareBy(CamelCardHand::thirdCardScore))
+                .then(compareBy(CamelCardHand::fourthCardScore))
+                .then(compareBy(CamelCardHand::fifthCardScore))
+        )
+
+        var sum = 0
+        for (i in sorted.indices) {
+            val hand = sorted[i]
+            println(hand.cards)
+            sum += hand.bid * (i + 1)
+        }
+
+        println(sum)
+        // 249855720 too high
     }
 }
