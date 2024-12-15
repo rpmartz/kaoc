@@ -16,12 +16,11 @@ object Day01 {
             count += 1
             if (c == ')') {
                 floor -= 1
-            }
-            else {
+            } else {
                 floor += 1
             }
 
-            if(!enteredBasement && floor < 0) {
+            if (!enteredBasement && floor < 0) {
                 enteredBasement = true
                 println("Entered basement at step ${count}")
             }

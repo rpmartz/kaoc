@@ -67,17 +67,17 @@ object Day05 {
                 return false
             }
 
-            if(first in vowels) {
+            if (first in vowels) {
                 numVowels++
             }
 
-            if(!hasPair) {
+            if (!hasPair) {
                 hasPair = first == second
             }
 
         }
 
-        if(line.last() in vowels) {
+        if (line.last() in vowels) {
             numVowels++
         }
 

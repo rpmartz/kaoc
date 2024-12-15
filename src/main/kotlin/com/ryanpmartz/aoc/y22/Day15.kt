@@ -9,7 +9,7 @@ import kotlin.math.absoluteValue
 
 data class Pair(val sensor: Point2D, val beacon: Point2D) {
 
-    val coverageRange =  sensor.manhattanDistanceTo(beacon)
+    val coverageRange = sensor.manhattanDistanceTo(beacon)
 }
 
 object Day15 {
@@ -23,10 +23,10 @@ object Day15 {
 
         val ranges = mutableSetOf<IntRange>()
 
-        for(pair in pairs) {
+        for (pair in pairs) {
             val s = pair.sensor
             val distanceToLine = s.manhattanDistanceTo(Point2D(s.x, Y))
-            if(distanceToLine <= pair.coverageRange) {
+            if (distanceToLine <= pair.coverageRange) {
                 val horizontalRange = (pair.coverageRange - distanceToLine)
                 val minX = s.x - horizontalRange
                 val maxX = s.x + horizontalRange

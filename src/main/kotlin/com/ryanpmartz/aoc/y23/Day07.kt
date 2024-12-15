@@ -35,6 +35,7 @@ data class CamelCardHand(val cards: String, val bid: Int) {
     fun getFirstCardScore(): Int {
         return cardValueMap[cards[0]]!!
     }
+
     fun secondCardScore(): Int {
         return cardValueMap[cards[1]]!!
     }

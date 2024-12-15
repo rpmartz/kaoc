@@ -43,7 +43,7 @@ object Day03 {
         val symbolLocations = mutableSetOf<Point2D>()
         val numbers = mutableSetOf<NumberOnBoard>()
 
-        var previousChar: Char? = null
+        var previousChar: Char?
         var numberStringBuffer: StringBuffer = StringBuffer()
         var currentNumStartPoint: Point2D? = null
 
